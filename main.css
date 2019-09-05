@@ -13,6 +13,7 @@ header {
   text-align: center;
   width: 100%;
   z-index: 2;
+  box-sizing: border-box;
 }
 
 h1 {
@@ -178,6 +179,7 @@ li:last-child {
   margin-top: 24px;
   color: #656363;
   font-size: 14px;
+  word-break: break-word;
 }
 
 .result-wrapper::before {

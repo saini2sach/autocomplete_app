@@ -28,6 +28,7 @@ const MY_APP = 'AUTO_COMPLETE_APP';
      * Event handler attached
      */
     inputObj.addEventListener('keyup', handleInputChange);
+    inputObj.addEventListener('keydown', handleBackpress);
     suggestionList.addEventListener('click', selectListItem);
     tagContainerObj.addEventListener('click', removeTaggedItem);
 
@@ -54,13 +55,19 @@ const MY_APP = 'AUTO_COMPLETE_APP';
         }
       }
       else {
-        if (selectedCodeList.length > 0 && evt.keyCode === 8) {
-          removeLastCode(selectedCodeList[selectedCodeList.length - 1]);
-        }
-
         if (suggestListObj.classList.contains('show')) {
           suggestListObj.classList.remove('show')
         }
+      }
+    }
+
+    function handleBackpress(evt) {
+      let inputVal = evt.target.value.trim();
+      if (evt.keyCode === 8 && inputVal.length === 0 && selectedCodeList.length > 0) {
+        removeLastCode(selectedCodeList[selectedCodeList.length - 1]);
+      }
+      else {
+        return false;
       }
     }
 
@@ -150,6 +157,7 @@ const MY_APP = 'AUTO_COMPLETE_APP';
       }
 
       displayCountriesDetails(selectedCodeList);
+      inputObj.focus();
     }
 
     /**
@@ -219,6 +227,7 @@ const MY_APP = 'AUTO_COMPLETE_APP';
       allCountriesDetailList = response;
       codeToCountryMap = makeCountryToCodeMap(allCountriesDetailList);
       countryCodeList = Object.keys(codeToCountryMap);
+      inputObj.focus();
     }
 
     /**
