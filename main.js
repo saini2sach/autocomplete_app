@@ -105,7 +105,9 @@ const MY_APP = 'AUTO_COMPLETE_APP';
      */
     function selectListItem(evt) {
       let currItem = evt.target;
-      addSuggestedTag(currItem.dataset.code);
+      if (currItem.dataset.code !== 'no_result_found') {
+        addSuggestedTag(currItem.dataset.code);
+      }
     }
 
     /**
@@ -186,7 +188,7 @@ const MY_APP = 'AUTO_COMPLETE_APP';
         });
       }
       else {
-        listContent += `<li>No Result Found</li>`;
+        listContent += `<li data-code="no_result_found">No Result Found</li>`;
       }
 
       suggestListObj.innerHTML = listContent + '</ul>';
